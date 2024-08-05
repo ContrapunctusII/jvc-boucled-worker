@@ -50,7 +50,7 @@ async function fetchAccountInfos(username: string, password: string) : Promise<l
     const { code, response } = await client.login();
 
     if (code === WRONG_PASSWORD) {
-        logger.warn(`Seems like user provided wrong credentials. Server response : ${JSON.stringify(response)}.`);
+        logger.warn(`Seems like user provided wrong credentials.`);
         return { code: code, account: { id: null, username: username, level: null, isBanned: null, password: null, loops: [], unusable: true }};
     }
     if (code === LOGIN_FAILED) {
