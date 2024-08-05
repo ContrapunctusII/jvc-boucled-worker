@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs</title>
+    <link rel="stylesheet" href="/styles/logs.css">
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/comptes" class="nav-link">Comptes</a></li>
+                <li><a href="/boucles" class="nav-link">Boucles</a></li>
+                <li><a href="/ajout-boucle" class="nav-link">Créer une boucle</a></li>
+                <li><a href="/logs" class="nav-link active">Logs</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-container">
+        <div class="logs-table">
+            <% logs.forEach(log => { %>
+                <div class="log-entry <%= log.type %>" onclick="toggleDetails(this)">
+                    <div class="log-header">
+                        <span class="log-timestamp"><%= new Date(log.date).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></span>
+                        <span class="log-operation">Opération : <%= log.operation %></span>
+                        <span class="log-message"><%= log.type.charAt(0).toUpperCase() + log.type.slice(1) %>: <%= log.message %></span>
+                    </div>
+                    <div class="log-details">
+                        <p><%= log.details %></p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <script src="/scripts/logs.js"></script>
+</body>
+</html>

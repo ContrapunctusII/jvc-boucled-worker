@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boucles</title>
+    <link rel="stylesheet" href="/styles/loops.css">
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/comptes" class="nav-link">Comptes</a></li>
+                <li><a href="/boucles" class="nav-link active">Boucles</a></li>
+                <li><a href="/ajout-boucle" class="nav-link">Créer une boucle</a></li>
+                <li><a href="/logs" class="nav-link">Logs</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-container">
+        <table id="loops-table" <% if(loops.length === 0){ %> style="display: none;" <% } %>>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom de boucle</th>
+                    <th>Heures</th>
+                    <th>Comptes</th>
+                    <th>Active ?</th>
+                    <th>Dernier topic</th>
+                </tr>
+            </thead>
+            <tbody id="loops-table-body">
+                <% loops.forEach(loop => { %>
+                    <tr class="loop">
+                        <td><a href="/boucle/<%= loop.id %>"><%= loop.id %></a></td>
+                        <td><%= loop.name %></td>
+                        <td><%= loop.times.join(', ') %></td>
+                        <td><% loop.accounts.forEach((a, index) => { %>
+                            <span class="<%= (a.isBanned) ? 'banned' : 'available' %>"><%= a.username %></span><% if (index !== loop.accounts.length - 1) { %>, <% } %>
+                        <% }); %></td>
+                        <td><span class="<%= (loop.status === 'active') ? 'available' : 'banned' %>"><%= (loop.status === 'active') ? 'Oui' : 'Non' %></span></td>
+                        <td>
+                            <% if (loop.lastPost.topicURL) { %>
+                                <a href="<%= loop.lastPost.topicURL %>" target="_blank">Voir ici</a>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <div class="attention-supercontainer" <% if(loops.length === 0){ %> style="display: flex;" <% } %>>
+            <div id="attention-container" class="attention-container">
+                <p id="attention-msg">Aucune boucle n'a été ajoutée.</p>
+            </div>
+        </div>
+        <a href="/ajout-boucle"><button id="fixed-add-button">Ajouter une boucle</button></a>
+    </div>
+</body>
+</html>

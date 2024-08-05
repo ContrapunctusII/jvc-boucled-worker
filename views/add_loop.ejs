@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création d'une boucle</title>
+    <link rel="stylesheet" href="/styles/add_loop.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/comptes" class="nav-link">Comptes</a></li>
+                <li><a href="/boucles" class="nav-link">Boucles</a></li>
+                <li><a href="/ajout-boucle" class="nav-link active">Créer une boucle</a></li>
+                <li><a href="/logs" class="nav-link">Logs</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-container">
+        <form>
+            <div class="columns-container">
+                <div class="left-column">
+                    <div class="form-group">
+                        <label for="name">Nom*<span class="tooltip-icon" data-tooltip="Nom de la boucle, qui aura pour but pour la désigner sur ce serveur.">?</span></label>
+                        <input type="text" name="name" id="name" maxlength="30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description<span class="tooltip-icon" data-tooltip="Description optionnelle de la boucle, qui ne sera utilisée que sur ce serveur.">?</span></label>
+                        <textarea id="description" name="description" maxlength="250" rows="4"></textarea>
+                    </div>
+                    <div class="form-group" style="display:flex;">
+                        <label for="active">Boucle active ?*<span class="tooltip-icon" data-tooltip="Si la case est décochée, la boucle ne sera pas postée jusqu'à ce que vous la rendiez active.">?</span></label>
+                        <input id="active" checked name="active" type="checkbox"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">ID du forum*<span class="tooltip-icon" data-tooltip="L'ID du forum sur lequel la boucle sera postée, trouvable dans l'URL dudit forum. Pour le 18-25, entrez 51.">?</span></label>
+                        <input min="1" max="100000" id="forumId" name="forumId" type='number' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Titre*<span class="tooltip-icon" data-tooltip="Titre du topic à poster.">?</span></label>
+                        <input type="text" id="title" name="title" maxlength="100" required>
+                    </div>
+                    <div class="form-group main-message-container">
+                        <label for="main-message">Message principal*<span class="tooltip-icon" data-tooltip="Corps du topic.">?</span></label>
+                        <textarea id="main-message" name="main-message" required maxlength="16000" rows="10" style="max-height: 200px; overflow-y: auto;"></textarea>
+                    </div>
+                    <div id="responses-container">
+                        <button type="button" class="add-button" id="add-response">Ajouter une réponse</button>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="section">
+                        <h2>Comptes<span class="tooltip-icon" data-tooltip="Listes des comptes associés à la boucle (un seul sera utilisé pour un post). Vert : disponible, rouge : banni.">?</span></h2>
+                        <div class="account-section-content">
+                        </div>
+
+                        <div class="attention-supercontainer"  style="margin-top: 0;">
+                            <div id="attention-container" class="attention-container">
+                                <p id="attention-msg">Attention : tous les comptes sélectionnés sont bannis, ce qui signifie que la boucle ne sera pas active.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>Heures<span class="tooltip-icon" data-tooltip="La boucle sera postée quotidiennement à ces heures.">?</span></h2>
+                        <div class="time-section-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="submit-container">
+                <button type="submit" class="submit-button" id="submit-button">Ajouter la boucle</button>
+            </div>
+            <div id="error-container" class="result-container error-container">
+                <p id="error-message"></p>
+            </div>
+            <div id="success-container" class="result-container success-container">
+                <p id="success-message"></p>
+            </div>
+
+            <script>
+                window.serverAccounts = '<%- JSON.stringify(accounts) %>';
+            </script>
+        </form>
+    </div>
+
+    <script src="/scripts/add_loop.js"></script>
+</body>
+</html>

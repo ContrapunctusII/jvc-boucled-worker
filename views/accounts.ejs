@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts</title>
+    <link rel="stylesheet" href="/styles/accounts.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/comptes" class="nav-link active">Comptes</a></li>
+                <li><a href="/boucles" class="nav-link">Boucles</a></li>
+                <li><a href="/ajout-boucle" class="nav-link">Créer une boucle</a></li>
+                <li><a href="/logs" class="nav-link">Logs</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-content">
+        <div class="table-container" <% if(accounts.length === 0){ %> style="display: none;" <% } %>>
+            <table id="accounts-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Statut</th>
+                        <th>Niveau</th>
+                        <th>Utilisé dans les boucles</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="account-table-body">
+                    <% accounts.forEach(account => { %>
+                        <tr class="account">
+                            <td><%= account.id %></td>
+                            <td><%= account.username %></td>
+                            <td class="<%= account.isBanned || account.unusable ? 'banned' : 'available' %>">
+                                <%= account.isBanned ? 'banni' : 'disponible' %>
+                            </td>
+                            <td><%= account.level %></td>
+                            <td><% account.loops.map(loop => { %>
+                                <a href="/boucle/<%= loop.id %>" target="_blank"><%= loop.name %></a><% if (account.loops.indexOf(loop) !== account.loops.length - 1) { %>, <% } %>
+                            <% }); %></td>
+                            <td>
+                                <button class="delete-btn" onclick="removeAccount(this, '<%= account.id %>');">Supprimer</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="update-container">
+            <button id="update-all-button" class="update-all-btn" <% if(accounts.length === 0){ %> style="display: none;" <% } %> onclick="updateAllAccounts(this);">Tout mettre à jour</button>
+        </div>
+        
+        <div class="attention-supercontainer" <% if(accounts.length === 0){ %> style="display: flex;" <% } %>>
+            <div id="attention-container" class="attention-container">
+                <p id="attention-msg">Aucun compte n'a été ajouté.</p>
+            </div>
+        </div>
+
+        <div class="footer-container">
+            <div class="add-account-form-container">
+                <form id="add-account-form">
+                    <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" maxlength="15" required>
+                    <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                    <button type="submit" id="add-account-button">Ajouter un compte JVC</button>
+                </form>
+            </div>
+            <div id="error-container" class="result-container error-container">
+                <p id="error-message"></p>
+            </div>
+            <div id="success-container" class="result-container success-container">
+                <p id="success-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/accounts.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+table {
+    max-width: 80%;
+    width: 80%;
+    border-collapse: collapse;
+    margin: 3rem 0; /* Reduced margin to move the table closer to the top */
+    font-size: 18px;
+    text-align: left;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd; /* Border between cells */
+}
+th {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: center;
+}
+tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+.footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #e0e0e0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.add-account-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-account-form-container form {
+    display: flex;
+    gap: 10px;
+}
+.add-account-form-container input[type="text"],
+.add-account-form-container input[type="password"] {
+    padding: 8px;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+}
+.add-account-form-container button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #009879;
+    color: white;
+    cursor: pointer;
+}
+.add-account-form-container button:hover {
+    background-color: #007a65;
+}
+
+.banned {
+    color: rgb(192, 36, 36);
+}
+
+.available {
+    color: rgb(33, 109, 33);
+}
+
+.result-container {
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;
+    margin: 10px auto 0 auto;
+    display: none;
+    text-align: center;
+}
+
+.smooth-display {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.result-container p {
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.error-container {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.success-container {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+#add-account-button:disabled, .update-all-btn:disabled {
+    background-color: #a5d6a7;
+    color: #ffffff;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+a {
+    color: #009879;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+a:hover {
+    color: #007a65;
+    text-decoration: underline;
+}
+
+.update-btn, .delete-btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin: 0 2px;
+}
+
+.update-btn {
+    background-color: #008cff;
+}
+
+.update-btn:hover {
+    background-color: #00b3b3;
+}
+
+.delete-btn {
+    margin-top: 5px;
+    background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+#accounts-table td:last-child {
+    text-align: center;
+}
+
+.update-all-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #009879;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.update-all-btn:hover:not([disabled]) {
+    background-color: #007e67;
+}

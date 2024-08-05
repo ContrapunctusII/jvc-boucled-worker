@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boucle <%= loop.name %></title>
+    <link rel="stylesheet" href="/styles/add_loop.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/comptes" class="nav-link">Comptes</a></li>
+                <li><a href="/boucles" class="nav-link">Boucles</a></li>
+                <li><a href="/ajout-boucle" class="nav-link">Créer une boucle</a></li>
+                <li><a href="/logs" class="nav-link">Logs</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-container">
+        <form>
+            <div class="columns-container">
+                <div class="left-column">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <span id="loop-id"><%= loop.id %></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nom*<span class="tooltip-icon" data-tooltip="Nom de la boucle, qui aura pour but pour la désigner sur ce serveur.">?</span></label>
+                        <input disabled type="text" name="name" id="name" maxlength="30" required value="<%= loop.name %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description<span class="tooltip-icon" data-tooltip="Description optionnelle de la boucle, qui ne sera utilisée que sur ce serveur.">?</span></label>
+                        <textarea disabled id="description" name="description" maxlength="250" rows="4"><%= loop.description %></textarea>
+                    </div>
+                    <div class="form-group" style="display:flex;">
+                        <label for="active">Boucle active ?<span class="tooltip-icon" data-tooltip="Si la case est décochée, la boucle ne sera pas postée jusqu'à ce que vous la rendiez active.">?</span></label>
+                        <input disabled id="active" name="active" type="checkbox" <%= loop.status === 'active' ? 'checked' : '' %>>
+                    </div>
+                    <div class="form-group">
+                        <label for="forumId">ID du forum*<span class="tooltip-icon" data-tooltip="L'ID du forum sur lequel la boucle sera postée, trouvable dans l'URL dudit forum. Pour le 18-25, entrez 51.">?</span></label>
+                        <input disabled min="1" max="100000" id="forumId" name="forumId" type="number" required value="<%= loop.forumId %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Titre*<span class="tooltip-icon" data-tooltip="Titre du topic à poster.">?</span></label>
+                        <input disabled type="text" id="title" name="title" maxlength="100" required value="<%= loop.title %>">
+                    </div>
+                    <div class="form-group main-message-container">
+                        <label for="main-message">Message principal*<span class="tooltip-icon" data-tooltip="Corps du topic.">?</span></label>
+                        <textarea disabled id="main-message" name="main-message" required maxlength="16000" rows="10" style="max-height: 200px; overflow-y: auto;"><%= loop.first_message %></textarea>
+                    </div>
+                    <div id="responses-container">
+                        <% loop.answers.forEach((answer, index) => { %>
+                            <div class="response">
+                                <div class="form-group">
+                                    <label>Réponse <%= index + 1 %>*<span class="tooltip-icon" data-tooltip="Réponse au topic qui sera postée par le boucleur.">?</span></label>
+                                    <textarea disabled maxlength="2000" name="answer-<%= index + 1 %>" required rows="4" style="max-height: 200px; overflow-y: auto;"><%= answer.text %></textarea>
+                                </div>
+                                <div class="response-buttons">
+                                    <label>Délai (mm:ss)*<span class="tooltip-icon" data-tooltip="Délai entre la dernière réponse et celle-ci.">?</span></label>
+                                    <select disabled class="time-input" required name="answer-delay<%= index + 1 %>">
+                                        <option selected value="<%= answer.delay %>"><%= answer.delay %></option>
+                                    </select>
+                                    <button disabled type="button" class="delete-button">Supprimer la réponse</button>
+                                </div>
+                            </div>
+                        <% }); %>
+                        <button type="button" disabled class="add-button" id="add-response">Ajouter une réponse</button>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="section">
+                        <h2>Comptes<span class="tooltip-icon" data-tooltip="Listes des comptes associés à la boucle (un seul sera utilisé pour un post). Vert : disponible, rouge : banni.">?</span></h2>
+                        <div class="account-section-content">
+                            <% loop.accounts.forEach((account, index) => { %>
+                                <div class="form-group">
+                                    <label for="account-<%= index + 1 %>">Compte <%= index + 1 %>*</label>
+                                    <select disabled class="account-select <%= account.isBanned ? 'account-banned' : 'account-available' %>" required name="account-<%= index + 1 %>" id="account-<%= index + 1 %>">
+                                        <option selected class="<%= account.isBanned ? 'account-banned' : 'account-available' %>" value="<%= account.id %>"><%= account.username %></option>
+                                    </select>
+                                    <div class="buttons-container">
+                                        <% if (index !== 0) { %>
+                                            <button disabled type="button" class="delete-button">Supprimer le compte</button>
+                                        <% } %>
+                                        <% if (index === loop.accounts.length - 1) { %>
+                                            <button disabled type="button" class="add-button" id="add-account">Ajouter un compte</button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <div class="attention-supercontainer <%= loop.accounts.length === 0 ? 'hidden' : '' %>"  style="margin-top: 0;">
+                            <div id="attention-container" class="attention-container">
+                                <p id="attention-msg">Aucun compte n'a été associé à la boucle. Elle est donc inactive.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h2>Heures<span class="tooltip-icon" data-tooltip="La boucle est postée quotidiennement à ces heures.">?</span></h2>
+                        <div class="time-section-content">
+                            <% loop.times.forEach((time, index) => { %>
+                                <div class="form-group">
+                                    <label for="time-<%= index + 1 %>">Heure <%= index + 1 %>*</label>
+                                    <select disabled class="time-select" required name="time-<%= index + 1 %>" id="time-<%= index + 1 %>">
+                                        <option selected value="<%= time %>"><%= time %></option>
+                                    </select>
+                                    <div class="buttons-container">
+                                        <% if (index !== 0) { %>
+                                            <button disabled type="button" class="delete-button">Supprimer l'heure</button>
+                                        <% } %>
+                                            <% if (index === loop.times.length - 1) { %>
+                                            <button disabled type="button" class="add-button" id="add-time">Ajouter une heure</button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="submit-container">
+                <button type="button" class="submit-button" id="edit-button">Modifier la boucle</button>
+                <button type="button" class="delete-button" id="delete-button" onclick="deleteLoop();">Supprimer la boucle</button>
+            </div>
+            <div id="error-container" class="result-container error-container">
+                <p id="error-message"></p>
+            </div>
+            <div id="success-container" class="result-container success-container">
+                <p id="success-message"></p>
+            </div>
+
+            <script>
+                window.serverAccounts = '<%- JSON.stringify(accounts) %>';
+            </script>
+        </form>
+    </div>
+
+    <script src="/scripts/loop.js"></script>
+</body>
+</html>
