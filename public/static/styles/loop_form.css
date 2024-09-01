@@ -1,0 +1,168 @@
+.page-container {
+    padding: 20px;
+}
+
+.columns-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+}
+
+.left-column,
+.right-column {
+    width: 50%;
+    flex: 50%;
+    padding: 20px 20px 5px 20px;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-left: 10px;
+    height: 100%;
+}
+
+textarea {
+    resize: vertical;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.answer {
+    margin-top: 20px;
+    border: 1px solid #dddddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.answer .form-group {
+    margin-bottom: 10px;
+}
+
+.answer-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.answer-buttons .delay-label {
+    margin-right: 10px;
+}
+
+.answer-buttons .delay-input {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    width: auto;
+    height: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+.section {
+    margin-bottom: 40px;
+    /* Space between sections */
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.section h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.section-content {
+    border-left: 2px solid #009879;
+    padding-left: 20px;
+}
+
+.account-select,
+.time-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.account-select {
+    height: 40px;
+}
+
+.time-select {
+    height: 40px;
+}
+
+.section .form-group {
+    margin-bottom: 20px;
+}
+
+.section .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.main-message-container {
+    margin-bottom: 7px;
+}
+
+#add-account {
+    height: 40px;
+    padding: 10px 20px;
+    background-color: #009879;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#add-account:hover:not([disabled]) {
+    background-color: #007e67;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.submit-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px 20px 20px 20px;
+    box-sizing: border-box;
+    gap: 8px;
+}

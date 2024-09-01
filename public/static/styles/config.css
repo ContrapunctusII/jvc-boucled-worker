@@ -1,0 +1,54 @@
+.submit-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px 20px 10px 20px;
+    box-sizing: border-box;
+    gap: 8px;
+}
+
+.page-container {
+    padding: 20px 40px 40px 40px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+textarea,
+select {
+    width: 450px;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.attention-supercontainer {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.attention-supercontainer div {
+    width: 100%;
+}
+
+.result-container {
+    width: 100%;
+}
+
+.footer-container {
+    bottom: 20px;
+    position: fixed;
+    width: 100%;
+}

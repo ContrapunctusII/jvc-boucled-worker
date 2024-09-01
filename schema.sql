@@ -1,0 +1,34 @@
+DROP TABLE IF EXISTS Accounts;
+DROP TABLE IF EXISTS Loops;
+DROP TABLE IF EXISTS Logs;
+CREATE TABLE IF NOT EXISTS Accounts (
+    AccountId INTEGER PRIMARY KEY,
+    Username VARCHAR(15) NOT NULL,
+    Password VARCHAR(100) NOT NULL,
+    Level INTEGER,
+    IsBanned BOOLEAN,
+    Loops JSON,
+    Unusable BOOLEAN
+);
+CREATE TABLE IF NOT EXISTS Loops (
+    LoopId INTEGER PRIMARY KEY,
+    Name VARCHAR(30) NOT NULL,
+    Title VARCHAR(100) NOT NULL,
+    ForumId INTEGER NOT NULL,
+    Description VARCHAR(300),
+    FirstMessage VARCHAR(16000) NOT NULL,
+    Answers JSON,
+    Times JSON NOT NULL,
+    Accounts JSON NOT NULL,
+    LastPosts JSON,
+    UserStatus VARCHAR(10) NOT NULL,
+    Disabled BOOLEAN NOT NULL
+);
+CREATE TABLE IF NOT EXISTS Logs (
+    LogId INTEGER PRIMARY KEY,
+    LogType VARCHAR(20) NOT NULL,
+    LogMessage VARCHAR(200) NOT NULL,
+    Operation VARCHAR(10000) NOT NULL,
+    Details VARCHAR(16000),
+    LogDate DATETIME NOT NULL
+);
