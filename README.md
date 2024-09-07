@@ -51,6 +51,11 @@ Veuillez vous y référer avant de continuer, car l'utilisation d'un proxy est
 après le déploiement du proxy sera à renseigner dans l'interface du _worker_
 (voir plus bas).
 
+Une fois le déploiement terminé, pensez à changer la région Vercel du proxy pour
+le situer en France (le code de la région est `cdg1`). La procédure est
+expliquée dans le _README_ du dépôt fourni. Ainsi, JVC ne rendra pas non
+cliquables les liens postés par le _worker_.
+
 ### Préparation
 
 Ouvrez un terminal à l'emplacement de votre choix puis cloner le dépôt avec
