@@ -84,7 +84,8 @@ async function getNewAccountInfos(account: Account): Promise<accountUpdateRes> {
 }
 
 /**
- * Modifie la base de données pour mettre à jour les comptes passés en entrée.
+ * Modifie la base de données pour mettre à jour les comptes passés en entrée. Si rien n'est passé
+ * en entrée, met à jour tous les comptes. Si la liste de comptes est vide, ne fait rien.
  * 
  * @async
  * @function
@@ -93,11 +94,13 @@ async function getNewAccountInfos(account: Account): Promise<accountUpdateRes> {
  * @param {Array<Account>} accounts
  * @returns {Promise<accountsUpdateRes>}
  */
-export async function updateAccounts(accounts: Array<Account> = []): Promise<accountsUpdateRes> {
+export async function updateAccounts(accounts: Array<Account> | null = null): Promise<accountsUpdateRes> {
     let failed = false;
 
-    if (accounts.length === 0) {
+    if (!accounts) {
         accounts = await readAccounts();
+    } else if (accounts.length === 0) {
+        return { updatedAccounts: [], code: UPDATE_SUCCESS };
     }
 
     for (const account of accounts) {
