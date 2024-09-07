@@ -89,7 +89,9 @@ export async function sendLoopAnswers(): Promise<void> {
 
                 await updateLoop(loop); // mise à jour de la boucle et des comptes
                 const accountsToUpdate = poster.accountsToUpdate;
-                await updateAccounts(accountsToUpdate);
+                if (accountsToUpdate.length > 0) {
+                    await updateAccounts(accountsToUpdate);
+                }
             }
         }
     }
@@ -186,7 +188,9 @@ export async function sendLoopTopic(): Promise<void> {
     }
     await updateLoop(loop); // mise à jour des comptes et de la boucle
     const accountsToUpdate = poster.accountsToUpdate;
-    await updateAccounts(accountsToUpdate);
+    if (accountsToUpdate.length > 0) {
+        await updateAccounts(accountsToUpdate);
+    }
 
     await logResult(loop, code, info);
 }
