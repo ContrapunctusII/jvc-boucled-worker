@@ -41,7 +41,7 @@ export async function checkProxyValidity(proxyURL: string): Promise<number> {
     }
 
     try { // envoyer une requête de test pour vérifier que le site est bien un proxy
-        const testUrl = `${proxyURL}?url=https://www.jeuxvideo.com`;
+        const testUrl = `${proxyURL}/https://www.jeuxvideo.com`;
         const res = await fetch(testUrl);
         const text = await res.text();
 
