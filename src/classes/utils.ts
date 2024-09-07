@@ -105,7 +105,7 @@ export async function callApi(path: string, { method = 'GET', params = {}, data 
 
     if (useProxy) {
         const proxy = await getProxyURL();
-        url = `${proxy}/${url}`;
+        url = `${proxy}?url=${url}`;
     }
 
     const jvAuth = authHeader(path, method, params); // construction du header secret
@@ -159,7 +159,7 @@ export async function call(url: string, { method = 'GET', params = {}, data = {}
 
     if (useProxy) {
         const proxy = await getProxyURL();
-        url = `${proxy}/${url}`;
+        url = `${proxy}?url=${url}`;
     }
 
     let parsedData: string | undefined;
