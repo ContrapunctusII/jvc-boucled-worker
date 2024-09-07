@@ -120,11 +120,15 @@ export async function updateAccounts(accounts: Array<Account> = []): Promise<acc
         failed = true;
     }
 
+    const usernames = accounts.map(a => a.username).join(', ')
+
     if (failed) {
-        await logger.serverLog('attention', 'mise à jour des comptes', 'UPDATE_FAIL', "La totalité ou une partie des comptes n'a pu être mise à jour en raison d'une erreur inconnue.");
+        const errorDetails = accounts.length > 1 ? `La totalité ou une partie des comptes ${usernames} n'ont pu être mis à jour en raison d'une erreur inconnue.` : `Le compte ${usernames} n'a pu être mis à jour en raison d'une erreur inconnue.`
+        await logger.serverLog('attention', 'mise à jour des comptes', 'UPDATE_FAIL', errorDetails);
         return { updatedAccounts: accounts, code: UPDATE_FAIL };
     }
 
-    await logger.serverLog('info', 'mise à jour des comptes', 'UPDATE_SUCCESS', 'Les comptes ont été mis à jour.');
+    const successDetails = accounts.length > 1 ? `Les comptes ${usernames} ont été mis à jour.` : `Le compte ${usernames} a été mis à jour.`
+    await logger.serverLog('info', 'mise à jour des comptes', 'UPDATE_SUCCESS', successDetails);
     return { updatedAccounts: accounts, code: UPDATE_SUCCESS };
 }
